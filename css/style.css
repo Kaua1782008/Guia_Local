@@ -1,0 +1,215 @@
+*{
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	font-family: "Playw";
+}
+
+html,body{
+	height: 100%;
+}
+
+@font-face{
+	src: url('../fontes/Rubik-VariableFont_wght.ttf');
+	font-family: "Playw";
+}
+
+
+.topo {
+	background-color: #005c81;
+	color: #fff;
+	padding: 10px;
+	text-align: center;
+}
+
+.topo h1 {
+	font-size: 24px;
+	color: rgba(252, 252, 252, 0.76);
+}
+.topo p {
+	font-size: 14px;
+	color: rgba(255, 255, 255, 0.76);
+	padding: top 10px;
+}
+
+.centroTela {
+	background-color: #ebf7f8;
+	color: #fff;
+	width: 100%;
+	height: auto;
+	text-align: center;
+	padding: 15px;
+
+}
+
+.elementoSuperior {
+	border: 2px solid #005c81;
+	border-radius: 10px;
+	display: flex;
+	background-color: #fff;
+	color: #005c81;
+	width: 80%;
+	text-align: center;
+	margin: auto;
+}
+
+.pesquisa {
+	width: 100%;
+	text-align: center;
+	padding: 8px;
+}
+
+.pesquisa input {
+	width: 95%;
+	height: 50px;
+	border: 2px solid #005c81;;
+	border-radius: 10px;
+	background: transparent;
+	color: #005c81;
+	font-size: 20px;
+	text-align: center;
+}
+
+.categorias {
+	text-align: left;
+	/* margin-left: 2.5%; */
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+}
+
+.pesquisa h2 {
+	font-size: 20px;
+	color: #005c81;
+	text-align: left;
+	margin-top: 10px;
+	margin-left: 2.5%;
+}
+
+.pesquisa a {
+	background-color: #005c81;
+	color: #fff;
+	width: 15%;
+	height: 40%;
+	border: 2px solid #005c81;
+	border-radius: 10px;
+	font-size: 100%;
+	text-align: center;
+	margin: 10px 5px;
+	line-height: 33px;
+	cursor: pointer;
+	text-decoration: none;
+}
+
+.comercios-single {
+	color: #005c81;
+	width: 80%;
+	height: 100%;
+	margin: auto;
+	padding: 15px 0;
+	display: flex;
+	flex-wrap: wrap;
+}
+
+.comercio {
+	background-color: #fff;
+	color: #005c81;
+	width: 31.3%;
+	height: 30%;
+	border: 2px solid #005c81;
+	border-radius: 10px;
+	margin: 1%;
+	margin-top: 20px;
+	padding: 10px;
+	text-align: left;
+	position: relative;
+}
+
+.comercio img {
+	position: absolute;
+	width: 20px;
+	height: 20px;
+	top: 10px;
+	right: 10px;
+}
+
+.comercio h1{
+	padding-bottom: 20px;
+}
+
+.comercio hr{
+	width: 100%;
+	height: 2px;
+	border-radius: 55px;
+	background-color: #005c81;
+	margin-top: -15px;
+	margin-bottom: 20px;
+}
+
+.comercio a{
+	background-color: #005c81;
+	color: #fff;
+	border-radius: 5px;
+	font-size: 100%;
+	text-align: center;
+	display: flex;
+	line-height: 25px;
+	width: 120px;
+	justify-content: center;
+	margin-bottom: 5px;
+	
+}
+
+.footer {
+	background-color: #005c81;
+	color: #fff;
+	width: 100%;
+	height: 50px;
+	text-align: center;
+	padding: 16px;
+}
+
+
+@media screen and ( max-width: 1200px ) {
+	.comercio {
+		width: 350px;
+	}
+	
+	.categorias {
+	text-align: left;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	}
+
+	.pesquisa h2 {
+		color: #005c81;
+		text-align: center;
+	}
+}
+
+@media screen and ( max-width: 1080px ) {
+	.pesquisa a {
+	width: 25%;
+	font-size: 100%;
+}
+	
+}
+
+@media  screen and ( max-width: 800px ) {
+	.pesquisa a {
+	width: 25%;
+	font-size: 80%;
+}
+}
+
+@media  screen and ( max-width: 700px ) {
+	.pesquisa a {
+	width: 25%;
+	font-size: 60%;
+}
+}
+
+.hidden {
+	display: none;
+}
