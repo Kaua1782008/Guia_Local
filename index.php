@@ -12,21 +12,48 @@ if (count($fileContent) == 0) {
     exit('Arquivo vazio');
 }
 
+
+if (empty(trim($fileContent[0]))) {
+    exit('Primeira Linha Vazia');
+}
+
 foreach($fileContent as $content) {
     $linha = explode(';', $content);
     $comercios[] = new CSVConverter(
+        telefone:$linha[1], 
         nome:$linha[0],
         categoria:$linha[4], 
-        telefone:$linha[1], 
         endereco:$linha[2], 
         link:$linha[3], 
         horario:$linha[5]
     );
 }
 
-
-
 ?>
+        <?php
+        function slug($txt){
+        $txt = trim((string)$txt);
+        $txt = mb_strtolower($txt, 'UTF-8');
+
+        $map = [
+            'á'=>'a','à'=>'a','ã'=>'a','â'=>'a','ä'=>'a',
+            'é'=>'e','ê'=>'e','è'=>'e','ë'=>'e',
+            'í'=>'i','ì'=>'i','î'=>'i','ï'=>'i',
+            'ó'=>'o','ò'=>'o','õ'=>'o','ô'=>'o','ö'=>'o',
+            'ú'=>'u','ù'=>'u','û'=>'u','ü'=>'u',
+            'ç'=>'c'
+        ];
+        $txt = strtr($txt, $map);
+
+        $txt = preg_replace('/[^a-z0-9]+/', '-', $txt);
+
+        return trim($txt, '-');
+        }
+
+        ?>
+
+        
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -44,7 +71,7 @@ foreach($fileContent as $content) {
             <h1>Guia Local - Novo Cruzeiro</h1>
         </div>
         <div class="subTitulo">
-            <p>Comércos da Cidade</p>
+            <p>Comércios da Cidade</p>
         </div>
     </div>
 
@@ -56,112 +83,55 @@ foreach($fileContent as $content) {
                 <input type="text" placeholder="Pesquisar">
                 <h2>Categorias</h2>
                 <div class="categorias">
-                    <a href="?filtro=all">Todos</a>
-                    <a>Restaurantes</a>
-                    <a>Farmácias</a>
-                    <a>Lojas</a>
-                    <a>Serviços</a>
-                    <a>Supermercados</a>
+                    <a href="#" data-filtro="todos">Todos</a>
+                    <a href="#" data-filtro="restaurante">Restaurante</a>
+                    <a href="#" data-filtro="farmacia">Farmácia</a>
+                    <a href="#" data-filtro="loja">Loja</a>
+                    <a href="#" data-filtro="servico">Serviço</a>
+                    <a href="#" data-filtro="supermercado">Supermercado</a>
+                    <a>...</a>
                 </div><!--Categorias-->
             </div><!--Pesquisa-->
+        
         
         </div><!--Elemento Superior-->
 
         <div class="comercios-single">
 
-            <div class="comercio restaurante">
-                <img src="../images/Restaurante.png">
-                <h1>Restaurante Sabor Mineiro</h1>
-                <hr>
-                <a>Restaurante</a>
-                <p>Rua principal, 123 - Centro</p>
-                <p>(33) 3341-1234</p>
-                <p>Seg-Sáb: 11h-15h</p>
-            </div><!--comercio-->
-                <div class="comercio restaurante">
-                <img src="../images/Restaurante.png">
-                <h1>O Pastelão</h1>
-                <hr>
-                <a>Restaurante</a>
-                <p>Rua principal, 123 - Centro</p>
-                <p>(33) 3341-1234</p>
-                <p>Seg-Sáb: 11h-15h</p>
-            </div><!--comercio-->
-                <div class="comercio farmacia">
-                <img src="../images/Restaurante.png">
-                <h1>Restaurante Sabor Mineiro</h1>
-                <hr>
-                <a>Restaurante</a>
-                <p>Rua principal, 123 - Centro</p>
-                <p>(33) 3341-1234</p>
-                <p>Seg-Sáb: 11h-15h</p>
-            </div><!--comercio-->
-            <div class="comercio">
-                <img src="../images/Restaurante.png">
-                <h1>Restaurante Sabor Mineiro</h1>
-                <hr>
-                <a>Restaurante</a>
-                <p>Rua principal, 123 - Centro</p>
-                <p>(33) 3341-1234</p>
-                <p>Seg-Sáb: 11h-15h</p>
-            </div><!--comercio-->
-                        <div class="comercio">
-                <img src="../images/Restaurante.png">
-                <h1>Restaurante Sabor Mineiro</h1>
-                <hr>
-                <a>Restaurante</a>
-                <p>Rua principal, 123 - Centro</p>
-                <p>(33) 3341-1234</p>
-                <p>Seg-Sáb: 11h-15h</p>
-            </div><!--comercio-->
-                        <div class="comercio">
-                <img src="../images/Restaurante.png">
-                <h1>Restaurante Sabor Mineiro</h1>
-                <hr>
-                <a>Restaurante</a>
-                <p>Rua principal, 123 - Centro</p>
-                <p>(33) 3341-1234</p>
-                <p>Seg-Sáb: 11h-15h</p>
-            </div><!--comercio-->
-                        <div class="comercio">
-                <img src="../images/Restaurante.png">
-                <h1>Restaurante Sabor Mineiro</h1>
-                <hr>
-                <a>Restaurante</a>
-                <p>Rua principal, 123 - Centro</p>
-                <p>(33) 3341-1234</p>
-                <p>Seg-Sáb: 11h-15h</p>
-            </div><!--comercio-->
-                        <div class="comercio">
-                <img src="../images/Restaurante.png">
-                <h1>Restaurante Sabor Mineiro</h1>
-                <hr>
-                <a>Restaurante</a>
-                <p>Rua principal, 123 - Centro</p>
-                <p>(33) 3341-1234</p>
-                <p>Seg-Sáb: 11h-15h</p>
-            </div><!--comercio-->
-                        <div class="comercio">
-                <img src="../images/Restaurante.png">
-                <h1>Restaurante Sabor Mineiro</h1>
-                <hr>
-                <a>Restaurante</a>
-                <p>Rua principal, 123 - Centro</p>
-                <p>(33) 3341-1234</p>
-                <p>Seg-Sáb: 11h-15h</p>
-            </div><!--comercio-->
-                        <div class="comercio">
-                <img src="../images/Restaurante.png">
-                <h1>Restaurante Sabor Mineiro</h1>
-                <hr>
-                <a>Restaurante</a>
-                <p>Rua principal, 123 - Centro</p>
-                <p>(33) 3341-1234</p>
-                <p>Seg-Sáb: 11h-15h</p>
-            </div><!--comercio-->
-            
+        <?php
 
-        </div>
+        foreach ($comercios as $key => $data) {
+            
+            if($key != 0) {
+                ?>
+                <div class="comercio <?= slug($data->categoria) ?>">
+                    <h1>
+                        <?php echo $data->nome; ?>
+                    </h1>
+                    <hr>
+                    <a>
+                        <?php echo ucfirst($data->categoria); ?>
+                    </a>
+                    <p>
+                        <?php echo $data->endereco; ?>
+                    </p>
+                    <p>
+                        <?php echo $data->telefone; ?>
+                    </p>
+                    <a href="<?php echo $data->link; ?>" target="_blank" class="botao-comercio">Acesse</a>
+                    <p>
+                        <?php echo $data->horario; ?>
+                    </p>
+                </div><!--comercio-->
+
+            <?php
+            }            
+        }
+    ?>
+
+         
+                    
+            </div>
 
         </div><!--centroTela-->
     </div><!--topo-->

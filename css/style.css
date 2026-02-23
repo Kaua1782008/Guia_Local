@@ -29,7 +29,6 @@ html,body{
 .topo p {
 	font-size: 14px;
 	color: rgba(255, 255, 255, 0.76);
-	padding: top 10px;
 }
 
 .centroTela {
@@ -39,7 +38,6 @@ html,body{
 	height: auto;
 	text-align: center;
 	padding: 15px;
-
 }
 
 .elementoSuperior {
@@ -89,7 +87,7 @@ html,body{
 .pesquisa a {
 	background-color: #005c81;
 	color: #fff;
-	width: 15%;
+	width: 13%;
 	height: 40%;
 	border: 2px solid #005c81;
 	border-radius: 10px;
@@ -103,13 +101,17 @@ html,body{
 
 .comercios-single {
 	color: #005c81;
-	width: 80%;
-	height: 100%;
+	width: 90%;
+	height: auto;
 	margin: auto;
 	padding: 15px 0;
 	display: flex;
 	flex-wrap: wrap;
+	justify-content: center;
+	align-items: stretch;
 }
+
+
 
 .comercio {
 	background-color: #fff;
@@ -123,18 +125,13 @@ html,body{
 	padding: 10px;
 	text-align: left;
 	position: relative;
-}
-
-.comercio img {
-	position: absolute;
-	width: 20px;
-	height: 20px;
-	top: 10px;
-	right: 10px;
+	min-height: 300px;
+	max-height: 400px;
 }
 
 .comercio h1{
-	padding-bottom: 20px;
+	padding: 10px 0;
+	margin-bottom: 10px;
 }
 
 .comercio hr{
@@ -142,8 +139,8 @@ html,body{
 	height: 2px;
 	border-radius: 55px;
 	background-color: #005c81;
-	margin-top: -15px;
-	margin-bottom: 20px;
+	margin-top: -10px;
+	margin-bottom: 40px;
 }
 
 .comercio a{
@@ -158,6 +155,12 @@ html,body{
 	justify-content: center;
 	margin-bottom: 5px;
 	
+}
+
+.botao-comercio {
+	margin-top: 10px;
+	margin-bottom: 10px;
+	text-decoration: none;
 }
 
 .footer {
