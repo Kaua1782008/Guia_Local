@@ -1,3 +1,28 @@
+<?php 
+
+$db = new PDO('sqlite:' . __DIR__ . '/estabelecimentos.db');
+
+$db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+$db->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
+
+// Filtro por tipo
+$tipoFiltro = $_GET['tipo'] ?? '';
+
+// var_dump(new PDO('sqlite:' . __DIR__ . '/estabelecimentos.db'));
+
+$tipos = ['Farmácia', 'Supermercado','Postos','Alimentação',
+'Saúde','Serviços','Compras', 'Educação','Beleza e Bem-estar','Casa e Construção','Lazer e Turismo'];
+
+if ($tipoFiltro && in_array($tipoFiltro, $tipos)) {
+    $stmt = $db->prepare("SELECT * FROM estabelecimentos WHERE tipo = :tipo ORDER BY nome");
+    $stmt->execute([':tipo' => $tipoFiltro]);
+    $estabelecimentos = $stmt->fetchAll();
+} else {
+    $estabelecimentos = $db->query("SELECT * FROM estabelecimentos ORDER BY tipo, nome")->fetchAll();
+}
+
+?>
+
 <?php
 
 use app\CSVConverter;
@@ -53,16 +78,36 @@ foreach($fileContent as $content) {
         ?>
 
         
-
+<!--<?php var_dump($estabelecimentos); ?>-->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <title>Guia Local - Novo Cruzeiro</title>
-		<link href="css/style.css" type="text/css" rel="stylesheet">
+		<link href="css/style.css?v=<?php echo rand();?>" type="text/css" rel="stylesheet">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<meta charset="utf-8" />
 </head>
 
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const input = document.getElementById("pesquisa");
+    const cards = document.querySelectorAll(".card");
+
+    input.addEventListener("input", function () {
+        const termo = input.value.toLowerCase();
+
+        cards.forEach(card => {
+            const textoCard = card.innerText.toLowerCase();
+
+            if (textoCard.includes(termo)) {
+                card.style.display = "block";
+            } else {
+                card.style.display = "none";
+            }
+        });
+    });
+});
+</script>
 
 <body>
 
@@ -80,17 +125,16 @@ foreach($fileContent as $content) {
         <div class="elementoSuperior">
             
             <div class="pesquisa">
-                <input type="text" placeholder="Pesquisar">
+                <input type="text" id="pesquisa" placeholder="Pesquisar">
                 <h2>Categorias</h2>
-                <div class="categorias">
-                    <a href="#" data-filtro="todos">Todos</a>
-                    <a href="#" data-filtro="restaurante">Restaurante</a>
-                    <a href="#" data-filtro="farmacia">Farmácia</a>
-                    <a href="#" data-filtro="loja">Loja</a>
-                    <a href="#" data-filtro="servico">Serviço</a>
-                    <a href="#" data-filtro="supermercado">Supermercado</a>
-                    <a>...</a>
-                </div><!--Categorias-->
+                <nav class="filtros categorias">
+                        <a href="?" <?php echo !$tipoFiltro ? 'class="ativo"' : '' ?>>Todos</a>
+                        <?php foreach ($tipos as $tipo): ?>
+                            <a href="?tipo=<?php echo urlencode($tipo); ?>" <?php echo $tipoFiltro === $tipo ? 'class="ativo"' : ''; ?>>
+                                <?php echo $tipo; ?>
+                            </a>
+                    <?php endforeach ?>
+                </nav>
             </div><!--Pesquisa-->
         
         
@@ -98,36 +142,37 @@ foreach($fileContent as $content) {
 
         <div class="comercios-single">
 
-        <?php
-
-        foreach ($comercios as $key => $data) {
-            
-            if($key != 0) {
-                ?>
-                <div class="comercio <?= slug($data->categoria) ?>">
-                    <h1>
-                        <?php echo $data->nome; ?>
-                    </h1>
-                    <hr>
-                    <a>
-                        <?php echo ucfirst($data->categoria); ?>
-                    </a>
-                    <p>
-                        <?php echo $data->endereco; ?>
-                    </p>
-                    <p>
-                        <?php echo $data->telefone; ?>
-                    </p>
-                    <a href="<?php echo $data->link; ?>" target="_blank" class="botao-comercio">Acesse</a>
-                    <p>
-                        <?php echo $data->horario; ?>
-                    </p>
-                </div><!--comercio-->
-
-            <?php
-            }            
-        }
-    ?>
+        <?php if (empty($estabelecimentos)): ?>
+        <p class="vazio">Nenhum estabelecimento encontrado.</p>
+            <?php else: ?>
+                <?php foreach ($estabelecimentos as $estabelecimento): ?>
+                    
+                    <div class="card">
+                        
+                    <div class="card-header">
+                            <h2><?php echo $estabelecimento['nome']; ?></h2>
+                        </div>
+                        <hr>
+                        
+                        <span class="badge"><?php echo $estabelecimento['tipo']; ?></span>
+                        
+                        <p class="info"><?php echo $estabelecimento['endereco']; ?></p>
+                        
+                        <?php if ($estabelecimento['telefone']): ?>
+                            <p class="info"><?php echo $estabelecimento['telefone']; ?></p>
+                        <?php endif ?>
+                        
+                        <?php if ($estabelecimento['horario']): ?>
+                            <p class="info"><?php echo $estabelecimento['horario']; ?></p>
+                        <?php endif ?>
+                        
+                        <?php if ($estabelecimento['link']): ?>
+                            <a href="<?php echo $estabelecimento['link']; ?>" target="_blank" class="botao-comercio">Acesse</a>
+                        <?php endif ?>
+                   
+                    </div>
+                <?php endforeach ?>
+            <?php endif ?>
 
          
                     
@@ -136,13 +181,10 @@ foreach($fileContent as $content) {
         </div><!--centroTela-->
     </div><!--topo-->
 
-    <div class="footer">
-
-		<p>@2026 Guia Local - Novo Cruzeiro. Todos os direitos reservados</p>
-
-	</div><!--footer-->
-
-<script src="app.js"></script>
+<!--<script src="app.js"></script>-->
 
 </body>
+        <footer class="footer">
+		<p>@2026 Guia Local - Novo Cruzeiro. Todos os direitos reservados</p>
+        </footer>
 </html>
