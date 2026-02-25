@@ -92,13 +92,13 @@ html,body{
 	margin-left: 2.5%;
 }
 
-.pesquisa a:hover{
+.pesquisa a:hover,
+.pesquisa a.ativo {
     box-shadow: 0px 5px 10px 0px rgba(2, 25, 87, 0.5);
     transform: scale(1.05);
     background-color: #fff;
-	color: #005c81;
+    color: #005c81;
 }
-
 .pesquisa a {
 	background-color: #005c81;
 	color: #fff;

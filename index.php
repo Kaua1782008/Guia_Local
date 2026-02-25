@@ -126,7 +126,7 @@ document.addEventListener("DOMContentLoaded", function () {
             
             <div class="pesquisa">
                 <input type="text" id="pesquisa" placeholder="Pesquisar">
-                <h2>Categorias</h2>
+                <h2>Categorias</h2>             
                 <nav class="filtros categorias">
                         <a href="?" <?php echo !$tipoFiltro ? 'class="ativo"' : '' ?>>Todos</a>
                         <?php foreach ($tipos as $tipo): ?>
